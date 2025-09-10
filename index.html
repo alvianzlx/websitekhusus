@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Akun Dummy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+        }
+        .info {
+            background-color: #e9ecef;
+            border-left: 5px solid #007bff;
+            padding: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Daftar Akun Dummy</h1>
+
+    <div class="info">
+        <strong>URL API Sederhana:</strong><br>
+        Tambahkan parameter <code>?jumlah=N</code> di akhir URL untuk mendapatkan N data acak.<br>
+        Contoh: <code>http://localhost:8080/index.html?jumlah=10</code>
+    </div>
+
+    <table id="account-table">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            </tbody>
+    </table>
+</div>
+
+<script>
+    function generateRandomString(length, chars) {
+        let result = '';
+        for (let i = length; i > 0; --i) {
+            result += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return result;
+    }
+
+    function generateUniqueData(count) {
+        const firstNames = [
+            'Agus', 'Budi', 'Citra', 'Dewi', 'Eka', 'Fajar', 'Gita', 'Hadi', 'Ida', 'Joko',
+            'Siti', 'Rina', 'Andi', 'Lisa', 'Yoga', 'Putri', 'Rizky', 'Mila', 'Kevin', 'Aldo',
+            'Alex', 'Luna', 'Max', 'Mia', 'Liam', 'Olivia', 'Noah', 'Emma', 'Oliver', 'Charlotte',
+            'Elijah', 'Amelia', 'James', 'Sophia', 'Benjamin', 'Isabella', 'William', 'Ava',
+            'Lucas', 'Mason', 'Ethan', 'Harper', 'Evelyn', 'Avery', 'Jackson', 'Scarlett'
+        ];
+        const lastNames = [
+            'Wijaya', 'Susanto', 'Hartono', 'Santoso', 'Pratama', 'Hidayat', 'Kurniawan',
+            'Wibowo', 'Nugroho', 'Aditya', 'Smith', 'Jones', 'Miller', 'Davis', 'Garcia',
+            'Rodriguez', 'Wilson', 'Moore', 'Taylor', 'Anderson', 'Thomas', 'Jackson',
+            'White', 'Harris', 'Martin', 'Thompson'
+        ];
+        const symbols = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+        const uniqueEmails = new Set();
+        const data = [];
+
+        while (data.length < count) {
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const numberPart = Math.floor(Math.random() * 9999);
+            const email = `${firstName.toLowerCase()}${lastName.toLowerCase()}${numberPart}@gmail.com`;
+
+            if (!uniqueEmails.has(email)) {
+                uniqueEmails.add(email);
+                const passwordLength = Math.floor(Math.random() * 5) + 8; // min 8 chars
+                const upper = generateRandomString(Math.floor(Math.random() * 3) + 1, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+                const lower = generateRandomString(Math.floor(Math.random() * 4) + 1, 'abcdefghijklmnopqrstuvwxyz');
+                const numbers = generateRandomString(Math.floor(Math.random() * 3) + 1, '0123456789');
+                const symbol = generateRandomString(1, symbols);
+                let password = upper + lower + numbers + symbol;
+                password = password.split('').sort(() => 0.5 - Math.random()).join('');
+                
+                data.push({ email, password });
+            }
+        }
+        return data;
+    }
+
+    const accountData = generateUniqueData(400);
+
+    function renderTable(data) {
+        const tableBody = document.getElementById('account-table').querySelector('tbody');
+        tableBody.innerHTML = ''; // Clear existing data
+        data.forEach(account => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${account.email}</td><td>${account.password}</td>`;
+            tableBody.appendChild(row);
+        });
+    }
+
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function handleApiRequest() {
+        const jumlah = getQueryParam('jumlah');
+        if (jumlah) {
+            const count = parseInt(jumlah, 10);
+            if (!isNaN(count) && count > 0 && count <= accountData.length) {
+                const shuffled = accountData.sort(() => 0.5 - Math.random());
+                const selectedData = shuffled.slice(0, count);
+                const jsonData = JSON.stringify(selectedData, null, 2);
+                document.body.innerHTML = `<pre>${jsonData}</pre>`;
+                document.body.style.backgroundColor = '#2d2d2d';
+                document.body.style.color = '#f8f8f2';
+                document.body.style.fontFamily = 'monospace';
+            } else {
+                document.body.innerHTML = `<pre>Error: Parameter 'jumlah' tidak valid. Masukkan angka antara 1 dan ${accountData.length}.</pre>`;
+            }
+        } else {
+            renderTable(accountData);
+        }
+    }
+
+    // Jalankan logika utama saat halaman dimuat
+    handleApiRequest();
+</script>
+</body>
+</html>
